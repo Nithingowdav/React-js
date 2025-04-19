@@ -1,0 +1,110 @@
+// const heading = React.createElement('div', { id: 'parent' }, [
+//      React.createElement('div', { id: 'child1' }, [ 
+//     React.createElement('h1', {}, 'Hello World!!'),
+//      React.createElement('h1', {}, 'Namaskara'), 
+//      React.createElement('a', {href: 'https://www.google.com'}, 'Google')]),
+//      React.createElement('div', { id: 'child2' }, [ 
+//         React.createElement('h1', {}, 'Hello World!!'), 
+//         React.createElement('p', {}, 'This is a paragraph'),
+// ]),
+// ]);
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(heading);
+
+   
+//       const root = ReactDOM.createRoot(document.getElementById("root"));
+//       root.render(<AppLayout />);
+
+// import React, { useState, useEffect } from "react";
+// import ReactDOM from "react-dom/client";
+
+// function App() {
+//   const [message, setMessage] = useState("");
+
+//   const number = 1000;
+
+//   // Array of motivational quotes
+//   const quotes = [
+//     "💡 Believe you can and you're halfway there.",
+//     "🚀 Push yourself, because no one else is going to do it for you.",
+//     "🔥 Great things never come from comfort zones.",
+//     "🌱 Don't watch the clock. Do what it does. Keep going.",
+//     "🎯 Success is not for the lazy. Stay consistent!"
+//   ];
+
+
+
+//   const Title = () => (
+//  <h1>�� Welcome to React Namaste (Motivation Machine)</h1>
+//   )
+
+//   const Title1 = () => {
+//     return <h1>👋 Welcome to React Namaste (Motivation Machine)</h1>;
+//   };
+  
+
+//   // Function to show a random quote
+//   const showRandomQuote = () => {
+//     const randomIndex = Math.floor(Math.random() * quotes.length);
+//     setMessage(quotes[randomIndex]);
+//   };
+
+//   // Function to show current date/time
+//   const showDateTime = () => {
+//     const now = new Date().toLocaleString();
+//     setMessage(🕒 Current Date & Time: ${now});
+//   };
+
+//   // Reset message
+//   const resetMessage = () => {
+//     setMessage("");
+//   };
+
+//   // Auto-clear the message after 5 seconds
+//   useEffect(() => {
+//     if (message !== "") {
+//       const timer = setTimeout(() => {
+//         setMessage("");
+//       }, 5000);
+
+//       return () => clearTimeout(timer); // clear timer if message changes
+//     }
+//   }, [message]);
+
+//   return (
+//     <div style={{ textAlign: "center", marginTop: "50px" }}>
+
+//         <Title />
+//         <Title1 />
+//         <p>{number}</p>
+
+      
+//       <h1>🔥 React Namaste - Motivation Machine</h1>
+
+//       <div style={{ marginBottom: "20px" }}>
+//         <button onClick={showRandomQuote} style={{ margin: "5px" }}>💬 Random Quote</button>
+//         <button onClick={showDateTime} style={{ margin: "5px" }}>🕒 Show Date/Time</button>
+//         <button onClick={resetMessage} style={{ margin: "5px" }}>🗑 Reset</button>
+//       </div>
+
+//       {message && <p style={{ fontSize: "18px", color: "#333" }}>{message}</p>}
+//     </div>
+//   );
+// }
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Header from './components/Header';
+import Body from './components/Body';
+
+const AppLayout = () => {
+  return (
+    <div className = "app">
+  <Header />
+  <Body />
+    </div>
+  )
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<AppLayout />);
