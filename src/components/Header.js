@@ -1,11 +1,24 @@
 import { LOGO_URL } from "../utils/constant"; //named export
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 
 const Header = () => {
 
 // let btnName = "Login";
 const [btnNameReact, setBtnNameReact] = useState("Login"); //useState is a hook that allows you to add state to functional components
 console.log("Header component rendered");
+
+//if no dependency array => useEffect is called on every render
+  //if dependency array is empty => useEffect is called only once when the component mounts(initial render) just once
+  useEffect(() => {
+    console.log("useEffect called");
+  }, []);
+
+  //if dependency array has some value => useEffect is called when the value in the array changes every time brnNameReact is updated will trigger the useEffect
+  useEffect(() => {
+    console.log("useEffect called");
+    }, [btnNameReact]);
 
     return ( // Add return statement
       <div className="header">
@@ -14,9 +27,11 @@ console.log("Header component rendered");
         </div>
         <div className="nav-items">
           <ul>
-            <li> Home</li>
-            <li>About Us</li>
-            <li>Contact Us</li>
+            <li> <Link to="/">Home</Link></li>
+            <li>
+            <Link to="/about">About Us</Link></li>
+            <li>
+            <Link to="/contact">Contact us</Link></li>
             <li>Cart</li>
             <button className="login" onClick={() => {
               // setBtnNameReact("Logout");// it will change to login as logout  // btnName == "Logout" 
