@@ -166,6 +166,7 @@ const Body = () => {
               <Link
   key={restaurant.data?.id || restaurant.id}
   to={`/restaurant/${restaurant.data?.id || restaurant.id}`}
+  style={{ textDecoration: "none", color: "inherit" }}
 >
   <RestaurantCard resData={restaurant} />
 </Link>
