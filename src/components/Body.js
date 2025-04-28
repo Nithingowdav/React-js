@@ -3,7 +3,10 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import ErrorBoundary from "./ErrorBoundary"; // You'll need to create this component
 import Shimmer from "./Shimmer";
+<<<<<<< HEAD
 import useOnlineStatus from "../utils/useOnlineStatus";
+=======
+>>>>>>> dc8ee2daae993fc272aa639a7da7558143861791
 import { Link } from "react-router-dom";
 const proxyUrl = "https://api.allorigins.win/get?url=";
 const targetUrl = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.97530&lng=77.59100&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null";
@@ -175,6 +178,7 @@ const Body = () => {
               <Link
   key={restaurant.data?.id || restaurant.id}
   to={`/restaurant/${restaurant.data?.id || restaurant.id}`}
+  style={{ textDecoration: "none", color: "inherit" }}
 >
   <RestaurantCard resData={restaurant} />
 </Link>
