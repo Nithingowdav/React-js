@@ -138,7 +138,7 @@ const appRouter = createBrowserRouter([
         element: <RestaurantMenu />,
       },
       {
-        path: "/gocery",
+        path: "/grocery",
         element: <Suspense fallback={<h1>Loading....</h1>}><Grocery /></Suspense>
       }
     ],

@@ -206,7 +206,7 @@ const RestaurantMenu = () => {
   //const [resInfo, setResInfo] = useState(null);
     const { resId } = useParams(); // Get the restaurant ID from the URL
 
-    const resInfo = useRestaurantMenu(resId)
+    const resInfo = useRestaurantMenu(resId);
 
   // useEffect(() => {
   //   fetchMenu();

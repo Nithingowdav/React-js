@@ -24,13 +24,13 @@ const onlineStatus = useOnlineStatus();
     }, [btnNameReact]);
 
     return ( // Add return statement
-      <div className="header">
+      <div className="flex">
         <div className="logo-container">
           <img className="logo" src= {LOGO_URL} />
         </div>
         <div className="nav-items">
           <ul>
-            <li> Online Status: {onlineStatus ? "Online" : "Offline"} </li>
+          <li>Online Status: {onlineStatus ? "✅" : "❌"}</li>
             <li> <Link to="/">Home</Link></li>
             <li>
             <Link to="/about">About Us</Link></li>
