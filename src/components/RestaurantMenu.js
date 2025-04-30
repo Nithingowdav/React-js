@@ -1,198 +1,198 @@
-// // // import { useEffect, useState } from "react";
-// // // import Shimmer from "./Shimmer";
+// import { useEffect, useState } from "react";
+// import Shimmer from "./Shimmer";
 
-// // // const RestaurantMenu = () => {
-// // //   const [resInfo, setResInfo] = useState(null);
+// const RestaurantMenu = () => {
+//   const [resInfo, setResInfo] = useState(null);
 
-// // //   useEffect(() => {
-// // //     fetchMenu();
-// // //   }, []);
+//   useEffect(() => {
+//     fetchMenu();
+//   }, []);
 
-// // //   const fetchMenu = async () => {
-// // //     const data = await fetch(
-// // //       "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.97530&lng=77.59100&restaurantId=654809&catalog_qa=undefined&submitAction=ENTER"
-// // //     );
-// // //     const json = await data.json();
-// // //     console.log("✅ Full Response:", json);
+//   const fetchMenu = async () => {
+//     const data = await fetch(
+//       "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.97530&lng=77.59100&restaurantId=654809&catalog_qa=undefined&submitAction=ENTER"
+//     );
+//     const json = await data.json();
+//     console.log("✅ Full Response:", json);
 
-// // //     setResInfo(json?.data);
-// // //   };
+//     setResInfo(json?.data);
+//   };
 
-// // //   if (!resInfo) return <Shimmer />;
+//   if (!resInfo) return <Shimmer />;
 
-// // //   // ✅ Dynamically find restaurant info
-// // //   const info = resInfo?.cards?.find(
-// // //     (card) => card?.card?.card?.info?.name
-// // //   )?.card?.card?.info;
+//   // ✅ Dynamically find restaurant info
+//   const info = resInfo?.cards?.find(
+//     (card) => card?.card?.card?.info?.name
+//   )?.card?.card?.info;
 
-// // //   // ✅ Extract real menu items
-// // //   const menuCards =
-// // //     resInfo?.cards
-// // //       ?.find((c) => c.groupedCard)
-// // //       ?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+//   // ✅ Extract real menu items
+//   const menuCards =
+//     resInfo?.cards
+//       ?.find((c) => c.groupedCard)
+//       ?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
-// // //   const itemCards = menuCards
-// // //     .filter(
-// // //       (c) =>
-// // //         c?.card?.card["@type"] ===
-// // //         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-// // //     )
-// // //     .flatMap((c) => c?.card?.card?.itemCards || []);
+//   const itemCards = menuCards
+//     .filter(
+//       (c) =>
+//         c?.card?.card["@type"] ===
+//         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+//     )
+//     .flatMap((c) => c?.card?.card?.itemCards || []);
 
-// // //   return (
-// // //     <div className="restaurant-details" style={{ padding: "20px", fontFamily: "sans-serif" }}>
-// // //       <h1 style={{ fontSize: "28px", marginBottom: "8px" }}>{info?.name}</h1>
-// // //       <p style={{ color: "#666" }}>
-// // //         🍽 {info?.cuisines?.join(", ")} | 📍 {info?.areaName}
-// // //       </p>
-// // //       <p style={{ marginBottom: "20px", color: "#444" }}>
-// // //         💰 {info?.costForTwoMessage}
-// // //       </p>
+//   return (
+//     <div className="restaurant-details" style={{ padding: "20px", fontFamily: "sans-serif" }}>
+//       <h1 style={{ fontSize: "28px", marginBottom: "8px" }}>{info?.name}</h1>
+//       <p style={{ color: "#666" }}>
+//         🍽 {info?.cuisines?.join(", ")} | 📍 {info?.areaName}
+//       </p>
+//       <p style={{ marginBottom: "20px", color: "#444" }}>
+//         💰 {info?.costForTwoMessage}
+//       </p>
 
-// // //       <h2 style={{ marginBottom: "10px" }}>📋 Menu</h2>
-// // //       <ul style={{ listStyle: "none", padding: 0 }}>
-// // //         {itemCards?.map((item, index) => {
-// // //           const menuItem = item.card.info;
-// // //           return (
-// // //             <li
-// // //               key={`${menuItem.id}-${index}`} // Combine id and index for unique key
-// // //               style={{
-// // //                 padding: "10px 0",
-// // //                 borderBottom: "1px solid #eee",
-// // //                 display: "flex",
-// // //                 justifyContent: "space-between",
-// // //               }}
-// // //             >
-// // //               <span>{menuItem.name}</span>
-// // //               <span>
-// // //                 ₹
-// // //                 {menuItem.price
-// // //                   ? menuItem.price / 100
-// // //                   : menuItem.defaultPrice / 100}
-// // //               </span>
-// // //             </li>
-// // //           );
-// // //         })}
-// // //       </ul>
-// // //     </div>
-// // //   );
-// // // };
+//       <h2 style={{ marginBottom: "10px" }}>📋 Menu</h2>
+//       <ul style={{ listStyle: "none", padding: 0 }}>
+//         {itemCards?.map((item, index) => {
+//           const menuItem = item.card.info;
+//           return (
+//             <li
+//               key={`${menuItem.id}-${index}`} // Combine id and index for unique key
+//               style={{
+//                 padding: "10px 0",
+//                 borderBottom: "1px solid #eee",
+//                 display: "flex",
+//                 justifyContent: "space-between",
+//               }}
+//             >
+//               <span>{menuItem.name}</span>
+//               <span>
+//                 ₹
+//                 {menuItem.price
+//                   ? menuItem.price / 100
+//                   : menuItem.defaultPrice / 100}
+//               </span>
+//             </li>
+//           );
+//         })}
+//       </ul>
+//     </div>
+//   );
+// };
 
-// // // export default RestaurantMenu;
+// export default RestaurantMenu;
 
-// // import { useEffect, useState } from "react";
-// // import Shimmer from "./Shimmer";
+// import { useEffect, useState } from "react";
+// import Shimmer from "./Shimmer";
 
-// // const RestaurantMenu = () => {
-// //   const [resInfo, setResInfo] = useState(null);
+// const RestaurantMenu = () => {
+//   const [resInfo, setResInfo] = useState(null);
 
-// //   useEffect(() => {
-// //     fetchMenu();
-// //   }, []);
+//   useEffect(() => {
+//     fetchMenu();
+//   }, []);
 
-// //   const fetchMenu = async () => {
-// //     const data = await fetch(
-// //       "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.97530&lng=77.59100&restaurantId=654809&catalog_qa=undefined&submitAction=ENTER"
-// //     );
-// //     const json = await data.json();
-// //     setResInfo(json?.data);
-// //   };
+//   const fetchMenu = async () => {
+//     const data = await fetch(
+//       "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=12.97530&lng=77.59100&restaurantId=654809&catalog_qa=undefined&submitAction=ENTER"
+//     );
+//     const json = await data.json();
+//     setResInfo(json?.data);
+//   };
 
-// //   if (!resInfo) return <Shimmer />;
+//   if (!resInfo) return <Shimmer />;
 
-// //   const info = resInfo?.cards?.find(
-// //     (card) => card?.card?.card?.info?.name
-// //   )?.card?.card?.info;
+//   const info = resInfo?.cards?.find(
+//     (card) => card?.card?.card?.info?.name
+//   )?.card?.card?.info;
 
-// //   const menuCards =
-// //     resInfo?.cards
-// //       ?.find((c) => c.groupedCard)
-// //       ?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+//   const menuCards =
+//     resInfo?.cards
+//       ?.find((c) => c.groupedCard)
+//       ?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
 
-// //   const itemCategories = menuCards.filter(
-// //     (c) =>
-// //       c?.card?.card["@type"] ===
-// //       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-// //   );
+//   const itemCategories = menuCards.filter(
+//     (c) =>
+//       c?.card?.card["@type"] ===
+//       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+//   );
 
-// //   return (
-// //     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-// //       <h1 style={{ fontSize: "28px", marginBottom: "8px" }}>{info?.name}</h1>
-// //       <p style={{ color: "#666" }}>
-// //         🍽 {info?.cuisines?.join(", ")} | 📍 {info?.areaName}
-// //       </p>
-// //       <p style={{ marginBottom: "20px", color: "#444" }}>
-// //         💰 {info?.costForTwoMessage}
-// //       </p>
+//   return (
+//     <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
+//       <h1 style={{ fontSize: "28px", marginBottom: "8px" }}>{info?.name}</h1>
+//       <p style={{ color: "#666" }}>
+//         🍽 {info?.cuisines?.join(", ")} | 📍 {info?.areaName}
+//       </p>
+//       <p style={{ marginBottom: "20px", color: "#444" }}>
+//         💰 {info?.costForTwoMessage}
+//       </p>
 
-// //       <h2 style={{ margin: "20px 0 10px" }}>📋 Menu</h2>
+//       <h2 style={{ margin: "20px 0 10px" }}>📋 Menu</h2>
 
-// //       {itemCategories.map((category) => (
-// //         <div key={category.card.card.title}>
-// //           <h3 style={{ color: "#444", marginTop: "25px" }}>
-// //             🍴 {category.card.card.title}
-// //           </h3>
-// //           <div
-// //             style={{
-// //               display: "grid",
-// //               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-// //               gap: "20px",
-// //               marginTop: "10px",
-// //             }}
-// //           >
-// //             {category.card.card.itemCards.map((itemCard, index) => {
-// //               const item = itemCard.card.info;
-// //               const imageUrl = item.imageId
-// //                 ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208/${item.imageId}`
-// //                 : null;
+//       {itemCategories.map((category) => (
+//         <div key={category.card.card.title}>
+//           <h3 style={{ color: "#444", marginTop: "25px" }}>
+//             🍴 {category.card.card.title}
+//           </h3>
+//           <div
+//             style={{
+//               display: "grid",
+//               gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+//               gap: "20px",
+//               marginTop: "10px",
+//             }}
+//           >
+//             {category.card.card.itemCards.map((itemCard, index) => {
+//               const item = itemCard.card.info;
+//               const imageUrl = item.imageId
+//                 ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_208,h_208/${item.imageId}`
+//                 : null;
 
-// //               return (
-// //                 <div
-// //                   key={`${item.id}-${index}`}
-// //                   style={{
-// //                     border: "1px solid #ddd",
-// //                     borderRadius: "10px",
-// //                     padding: "15px",
-// //                     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-// //                     display: "flex",
-// //                     gap: "15px",
-// //                     backgroundColor: "#fff",
-// //                   }}
-// //                 >
-// //                   {imageUrl && (
-// //                     <img
-// //                       src={imageUrl}
-// //                       alt={item.name}
-// //                       style={{ width: "100px", height: "100px", borderRadius: "8px", objectFit: "cover" }}
-// //                     />
-// //                   )}
-// //                   <div style={{ flex: 1 }}>
-// //                     <h4 style={{ margin: "0 0 5px", color: "#333" }}>{item.name}</h4>
-// //                     <p style={{ margin: "0 0 5px", color: "#777", fontSize: "14px" }}>
-// //                       {item.description || "No description available"}
-// //                     </p>
-// //                     <p style={{ margin: "5px 0", fontWeight: "bold" }}>
-// //                       ₹
-// //                       {(item.price ?? item.defaultPrice ?? 0) / 100}
-// //                     </p>
-// //                     {item.ratings?.aggregatedRating?.rating && (
-// //                       <p style={{ margin: "0", color: "#f39c12", fontSize: "14px" }}>
-// //                         ⭐ {item.ratings.aggregatedRating.rating} (
-// //                         {item.ratings.aggregatedRating.ratingCount} ratings)
-// //                       </p>
-// //                     )}
-// //                   </div>
-// //                 </div>
-// //               );
-// //             })}
-// //           </div>
-// //         </div>
-// //       ))}
-// //     </div>
-// //   );
-// // };
+//               return (
+//                 <div
+//                   key={`${item.id}-${index}`}
+//                   style={{
+//                     border: "1px solid #ddd",
+//                     borderRadius: "10px",
+//                     padding: "15px",
+//                     boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
+//                     display: "flex",
+//                     gap: "15px",
+//                     backgroundColor: "#fff",
+//                   }}
+//                 >
+//                   {imageUrl && (
+//                     <img
+//                       src={imageUrl}
+//                       alt={item.name}
+//                       style={{ width: "100px", height: "100px", borderRadius: "8px", objectFit: "cover" }}
+//                     />
+//                   )}
+//                   <div style={{ flex: 1 }}>
+//                     <h4 style={{ margin: "0 0 5px", color: "#333" }}>{item.name}</h4>
+//                     <p style={{ margin: "0 0 5px", color: "#777", fontSize: "14px" }}>
+//                       {item.description || "No description available"}
+//                     </p>
+//                     <p style={{ margin: "5px 0", fontWeight: "bold" }}>
+//                       ₹
+//                       {(item.price ?? item.defaultPrice ?? 0) / 100}
+//                     </p>
+//                     {item.ratings?.aggregatedRating?.rating && (
+//                       <p style={{ margin: "0", color: "#f39c12", fontSize: "14px" }}>
+//                         ⭐ {item.ratings.aggregatedRating.rating} (
+//                         {item.ratings.aggregatedRating.ratingCount} ratings)
+//                       </p>
+//                     )}
+//                   </div>
+//                 </div>
+//               );
+//             })}
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
 
-// // export default RestaurantMenu;
+// export default RestaurantMenu;
 
 
 // //import { useEffect, useState } from "react";
@@ -208,17 +208,17 @@
 
 //     const resInfo = useRestaurantMenu(resId);
 
-//   // useEffect(() => {
-//   //   fetchMenu();
-//   // }, []);
+  // useEffect(() => {
+  //   fetchMenu();
+  // }, []);
 
-//   // const fetchMenu = async () => {
-//   //   const data = await fetch(
-//   //       MENU_API + resId // Use the restaurant ID in the API URL
-//   //   );
-//   //   const json = await data.json();
-//   //   setResInfo(json?.data);
-//   // };
+  // const fetchMenu = async () => {
+  //   const data = await fetch(
+  //       MENU_API + resId // Use the restaurant ID in the API URL
+  //   );
+  //   const json = await data.json();
+  //   setResInfo(json?.data);
+  // };
 
 //   if (!resInfo) return <Shimmer />;
 
