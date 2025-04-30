@@ -92,7 +92,7 @@
 //   );
 // }
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from './components/Header';
 import Body from './components/Body';
@@ -103,16 +103,37 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import RestaurantMenu from './components/RestaurantMenu';
 //import Grocery from './components/Grocery';
 import { lazy, Suspense } from 'react';
+import UserContext from './utils/UserContext';
 
 
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const AppLayout = () => {
+
+  const [userName, setUserName] = useState();
+
+  //authentication
+  useEffect(() => {
+    //make an api call and send username and password
+    const data = {
+      name: "Nithin Gowda",
+    };
+    setUserName(data.name);
+  }, []);
+
+
   return (
+    //default value for the context
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+    {/* // Nithin Gowda */}
     <div className = "app">
+    <UserContext.Provider value={{ loggedInUser: "Jogi Gowda" }}>
+    {/* Jogi gowda in header */}
   <Header />
+  </UserContext.Provider>
   <Outlet /> 
     </div>
+    </UserContext.Provider>
   )
 };
 

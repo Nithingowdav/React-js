@@ -1,9 +1,10 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {withPromotedLabel} from "./RestaurantCard";
 //import resList from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import ErrorBoundary from "./ErrorBoundary"; // You'll need to create this component
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext"; //importing the context
 import { Link } from "react-router-dom";
 const proxyUrl = "https://api.allorigins.win/get?url=";
 const targetUrl = "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.97530&lng=77.59100&collection=83639&tags=layout_CCS_Biryani&sortBy=&filters=&type=rcv2&offset=0&page_type=null";
@@ -19,6 +20,8 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const [searchText, setSearchText] = useState("");
   console.log("Body component rendered");
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);// higher order component passing 
 
  //useeffect will take two parameters/arugments first one is arrow function and second one is array of dependencies
   // useEffect (() => {
@@ -113,15 +116,17 @@ const Body = () => {
   </h1>
   );
 
+  const {loggedInUser, setUserName} = useContext(UserContext); //useContext is a hook that allows you to access the context value in functional components
+
     return listOfRestaurants.length === 0 ? ( <Shimmer /> ) : (
       <ErrorBoundary>
       <div className="body">
-        <div className="filter">
-        <div className="search">
+        <div className="filter flex">
+        <div className="search m-4 p-4">
           <input type="text" placeholder="Search" value={searchText} onChange={(e) => {
             setSearchText(e.target.value); //update the value of search text
-          }} className="search-input" />
-          <button className="search-btn" onClick={() =>{
+          }} className="border border-solid border-black" />
+          <button className="px-4 py-1 bg-green-100 m-4 rounded-lg" onClick={() =>{
             //filter the list of restaurants based on the search input
             //search text need usestate variabele and update the value of search text
             console.log(searchText);
@@ -130,7 +135,9 @@ const Body = () => {
             setFilteredRestaurant(filteredRestaurant);
           }}>Search</button>
         </div>
-            <button className="filter-btn" onClick={() => { 
+        <div className="search m-4 p-4 flex items-center">
+
+            <button className="px-4 py-1 bg-gray-100 rounded-lg" onClick={() => { 
               // const filteredList = listOfRestaurants.filter(
               //   (res) => res.data.avgRating > 4
               const filteredList = listOfRestaurants.filter(
@@ -141,8 +148,17 @@ const Body = () => {
               
                 console.log('listOfRestaurants', listOfRestaurants);
                 }}>Top Rated Restaurant</button>
+                </div>
+        <div className="search m-4 p-4 flex items-center">
+        <label>UserName  :  </label>
+        <input  
+        type="text" className="border border-solid border-black"
+        value={loggedInUser}
+        onChange={(e) => {setUserName(e.target.value)}}
+         />
         </div>
-        <div className="res-container">
+       </div>
+        <div className="flex flex-wrap">
           {/* <RestaurantCard resName="Megana Foods" cuisine="Biryani, North Indian, Asian"/>
           <RestaurantCard resName="KFC" cuisine="Masth kfc" />
           <RestaurantCard resData={resList[0]}/>
@@ -177,7 +193,11 @@ const Body = () => {
   to={`/restaurant/${restaurant.data?.id || restaurant.id}`}
   style={{ textDecoration: "none", color: "inherit" }}
 >
-  <RestaurantCard resData={restaurant} />
+
+
+              {restaurant?.promoted ? ( <RestaurantCardPromoted resData={restaurant}/> ) :
+  ( <RestaurantCard resData={restaurant} /> )
+}
 </Link>
 
             ))
