@@ -194,13 +194,11 @@
 
 // export default RestaurantMenu;
 
-
 // //import { useEffect, useState } from "react";
 // import Shimmer from "./Shimmer";
 // import { useParams } from "react-router-dom";
 // //import { MENU_API } from "../utils/constant";
 // import useRestaurantMenu from "../utils/useRestaurantMenu";
-
 
 // const RestaurantMenu = () => {
 //   //const [resInfo, setResInfo] = useState(null);
@@ -208,17 +206,17 @@
 
 //     const resInfo = useRestaurantMenu(resId);
 
-  // useEffect(() => {
-  //   fetchMenu();
-  // }, []);
+// useEffect(() => {
+//   fetchMenu();
+// }, []);
 
-  // const fetchMenu = async () => {
-  //   const data = await fetch(
-  //       MENU_API + resId // Use the restaurant ID in the API URL
-  //   );
-  //   const json = await data.json();
-  //   setResInfo(json?.data);
-  // };
+// const fetchMenu = async () => {
+//   const data = await fetch(
+//       MENU_API + resId // Use the restaurant ID in the API URL
+//   );
+//   const json = await data.json();
+//   setResInfo(json?.data);
+// };
 
 //   if (!resInfo) return <Shimmer />;
 
@@ -348,12 +346,12 @@ const RestaurantMenu = () => {
 
   if (!resInfo) return <Shimmer />;
 
-  const info = resInfo?.cards?.find(
-    (card) => card?.card?.card?.info?.name
-  )?.card?.card?.info;
+  const info = resInfo?.cards?.find((card) => card?.card?.card?.info?.name)
+    ?.card?.card?.info;
 
   const menuCards =
-    resInfo?.cards?.find((c) => c.groupedCard)?.groupedCard?.cardGroupMap?.REGULAR?.cards || [];
+    resInfo?.cards?.find((c) => c.groupedCard)?.groupedCard?.cardGroupMap
+      ?.REGULAR?.cards || [];
 
   const itemCategories = menuCards.filter(
     (c) =>
@@ -369,7 +367,9 @@ const RestaurantMenu = () => {
         <p className="text-gray-600 text-lg">
           🍽 {info?.cuisines?.join(", ")} | 📍 {info?.areaName}
         </p>
-        <p className="text-gray-700 text-md mt-1">💰 {info?.costForTwoMessage}</p>
+        <p className="text-gray-700 text-md mt-1">
+          💰 {info?.costForTwoMessage}
+        </p>
       </div>
 
       {itemCategories.map((category) => {
@@ -412,7 +412,9 @@ const RestaurantMenu = () => {
                       )}
                       <div className="p-4 flex-1 flex flex-col justify-between">
                         <div>
-                          <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
+                          <h3 className="text-lg font-semibold text-gray-800">
+                            {item.name}
+                          </h3>
                           <p className="text-sm text-gray-600 mt-1 min-h-[40px]">
                             {item.description || "No description available"}
                           </p>
@@ -441,4 +443,3 @@ const RestaurantMenu = () => {
 };
 
 export default RestaurantMenu;
-

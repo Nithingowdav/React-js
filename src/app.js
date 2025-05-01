@@ -1,17 +1,16 @@
 // const heading = React.createElement('div', { id: 'parent' }, [
-//      React.createElement('div', { id: 'child1' }, [ 
+//      React.createElement('div', { id: 'child1' }, [
 //     React.createElement('h1', {}, 'Hello World!!'),
-//      React.createElement('h1', {}, 'Namaskara'), 
+//      React.createElement('h1', {}, 'Namaskara'),
 //      React.createElement('a', {href: 'https://www.google.com'}, 'Google')]),
-//      React.createElement('div', { id: 'child2' }, [ 
-//         React.createElement('h1', {}, 'Hello World!!'), 
+//      React.createElement('div', { id: 'child2' }, [
+//         React.createElement('h1', {}, 'Hello World!!'),
 //         React.createElement('p', {}, 'This is a paragraph'),
 // ]),
 // ]);
 // const root = ReactDOM.createRoot(document.getElementById('root'));
 // root.render(heading);
 
-   
 //       const root = ReactDOM.createRoot(document.getElementById("root"));
 //       root.render(<AppLayout />);
 
@@ -32,8 +31,6 @@
 //     "🎯 Success is not for the lazy. Stay consistent!"
 //   ];
 
-
-
 //   const Title = () => (
 //  <h1>�� Welcome to React Namaste (Motivation Machine)</h1>
 //   )
@@ -41,7 +38,6 @@
 //   const Title1 = () => {
 //     return <h1>👋 Welcome to React Namaste (Motivation Machine)</h1>;
 //   };
-  
 
 //   // Function to show a random quote
 //   const showRandomQuote = () => {
@@ -78,7 +74,6 @@
 //         <Title1 />
 //         <p>{number}</p>
 
-      
 //       <h1>🔥 React Namaste - Motivation Machine</h1>
 
 //       <div style={{ marginBottom: "20px" }}>
@@ -92,24 +87,21 @@
 //   );
 // }
 
-import React, { useEffect, useState } from 'react';
-import ReactDOM from 'react-dom/client';
-import Header from './components/Header';
-import Body from './components/Body';
-import About from './components/About';
-import Contact from './components/Contact';
-import Error from './components/Error';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import RestaurantMenu from './components/RestaurantMenu';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom/client";
+import Header from "./components/Header";
+import Body from "./components/Body";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Error from "./components/Error";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import RestaurantMenu from "./components/RestaurantMenu";
 //import Grocery from './components/Grocery';
-import { lazy, Suspense } from 'react';
-import UserContext from './utils/UserContext';
-
-
+import { lazy, Suspense } from "react";
+import UserContext from "./utils/UserContext";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const AppLayout = () => {
-
   const [userName, setUserName] = useState();
 
   //authentication
@@ -121,20 +113,19 @@ const AppLayout = () => {
     setUserName(data.name);
   }, []);
 
-
   return (
     //default value for the context
     <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-    {/* // Nithin Gowda */}
-    <div className = "app">
-    <UserContext.Provider value={{ loggedInUser: "Jogi Gowda" }}>
-    {/* Jogi gowda in header */}
-  <Header />
-  </UserContext.Provider>
-  <Outlet /> 
-    </div>
+      {/* // Nithin Gowda */}
+      <div className="app">
+        <UserContext.Provider value={{ loggedInUser: "Jogi Gowda" }}>
+          {/* Jogi gowda in header */}
+          <Header />
+        </UserContext.Provider>
+        <Outlet />
+      </div>
     </UserContext.Provider>
-  )
+  );
 };
 
 const appRouter = createBrowserRouter([
@@ -160,8 +151,12 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/grocery",
-        element: <Suspense fallback={<h1>Loading....</h1>}><Grocery /></Suspense>
-      }
+        element: (
+          <Suspense fallback={<h1>Loading....</h1>}>
+            <Grocery />
+          </Suspense>
+        ),
+      },
     ],
     errorElement: <Error />,
   },
