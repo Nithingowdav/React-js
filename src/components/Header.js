@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext"; //importing the context
+import { useSelector } from "react-redux";
 
 const Header = () => {
   // let btnName = "Login";
@@ -16,14 +17,20 @@ const Header = () => {
 
   //if no dependency array => useEffect is called on every render
   //if dependency array is empty => useEffect is called only once when the component mounts(initial render) just once
-  useEffect(() => {
-    console.log("useEffect called");
-  }, []);
+  // useEffect(() => {
+  //   console.log("useEffect called");
+  // }, []);
 
   //if dependency array has some value => useEffect is called when the value in the array changes every time brnNameReact is updated will trigger the useEffect
-  useEffect(() => {
-    console.log("useEffect called");
-  }, [btnNameReact]);
+  // useEffect(() => {
+  //   console.log("useEffect called");
+  // }, [btnNameReact]);
+
+
+  //selector subscribe to the store and get the value of the cart from the redux store
+
+  const cartItems = useSelector((store) => store.cart.items); //useSelector is a hook that allows you to access the redux store in functional components
+  console.log("cartItems", cartItems); //accessing the redux store value
 
   return (
     // Add return statement
@@ -47,7 +54,8 @@ const Header = () => {
           <li className="px-4">
             <Link to="/grocery">Grocery</Link>
           </li>
-          <li className="px-4">Cart</li>
+          <li className="px-4 font-bold text-xl">
+          <Link to="/cart">Cart - ({cartItems.length} items)</Link></li>
           <button
             className="login"
             onClick={() => {

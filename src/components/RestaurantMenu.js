@@ -330,14 +330,144 @@
 
 // export default RestaurantMenu;
 
+// import { useParams } from "react-router-dom";
+// import { useState } from "react";
+// import Shimmer from "./Shimmer";
+// import useRestaurantMenu from "../utils/useRestaurantMenu";
+// import { useDispatch } from "react-redux";
+// import { addItem } from "../utils/cartSlice"; // Import the action to add item to cart
+
+// const RestaurantMenu = () => {
+//   const { resId } = useParams();
+//   const resInfo = useRestaurantMenu(resId);
+//   const dispatch = useDispatch();
+//   const [expandedCategory, setExpandedCategory] = useState(null);
+
+//   const toggleCategory = (title) => {
+//     setExpandedCategory(expandedCategory === title ? null : title);
+//   };
+
+//   if (!resInfo) return <Shimmer />;
+
+//   const info = resInfo?.cards?.find((card) => card?.card?.card?.info?.name)
+//     ?.card?.card?.info;
+
+//   const menuCards =
+//     resInfo?.cards?.find((c) => c.groupedCard)?.groupedCard?.cardGroupMap
+//       ?.REGULAR?.cards || [];
+
+//   const itemCategories = menuCards.filter(
+//     (c) =>
+//       c?.card?.card["@type"] ===
+//       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+//   );
+//   console.log(itemCategories);
+
+//   // const handleAddItem = () => {
+//   //   //dispatch the action to add the item to the cart we need useDispatch hook
+//   //   dispatch(addItem(itemCard.card.info)); // Pass the item to the action
+//   // }
+
+//   return (
+//     <div className="p-8 font-sans bg-gray-100 min-h-screen text-center">
+//       <div className="mb-8 bg-white p-6 rounded-lg shadow">
+//         <h1 className="text-3xl font-bold mb-2 text-gray-800">{info?.name}</h1>
+//         <p className="text-gray-600 text-lg">
+//           🍽 {info?.cuisines?.join(", ")} | 📍 {info?.areaName}
+//         </p>
+//         <p className="text-gray-700 text-md mt-1">
+//           💰 {info?.costForTwoMessage}
+//         </p>
+//       </div>
+
+//       {itemCategories.map((category) => {
+//         const title = category.card.card.title;
+//         const items = category.card.card.itemCards || [];
+
+//         return (
+//           <div key={title} className="mb-6">
+//             <div
+//               className="flex justify-between items-center cursor-pointer bg-white p-4 rounded-lg shadow hover:shadow-md transition"
+//               onClick={() => toggleCategory(title)}
+//             >
+//               <h2 className="text-xl font-semibold text-gray-800">
+//                 🍴 {title} ({items.length})
+//               </h2>
+//               <span className="text-gray-600 text-lg">
+//                 {expandedCategory === title ? "▲" : "▼"}
+//               </span>
+//             </div>
+
+//             {expandedCategory === title && (
+//               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-4">
+//                 {items.map((itemCard, index) => {
+//                   const item = itemCard.card.info;
+//                   const imageUrl = item.imageId
+//                     ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_200/${item.imageId}`
+//                     : null;
+
+//                   return (
+//                     <div
+//                       key={`${item.id}-${index}`}
+//                       className="bg-white rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col"
+//                     >
+//                       {imageUrl && (
+//                         <img
+//                           src={imageUrl}
+//                           alt={item.name}
+//                           className="w-full h-40 object-cover rounded-t-xl"
+//                         />
+//                       )}
+//                       <div className="p-4 flex-1 flex flex-col justify-between">
+//                         <div>
+//                           <h3 className="text-lg font-semibold text-gray-800">
+//                             {item.name}
+//                           </h3>
+//                           <p className="text-sm text-gray-600 mt-1 min-h-[40px]">
+//                             {item.description || "No description available"}
+//                           </p>
+//                         </div>
+//                         <div className="flex justify-between items-center mt-4">
+//                           <span className="font-bold text-gray-900">
+//                             ₹{(item.price ?? item.defaultPrice ?? 0) / 100}
+//                           </span>
+//                           {item.ratings?.aggregatedRating?.rating && (
+//                             <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full font-semibold">
+//                               ⭐ {item.ratings.aggregatedRating.rating}
+//                             </span>
+//                           )}
+//                           <button className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-full font-semibold" onClick={() => dispatch(addItem(item))}>
+//                            Add
+//                           </button>
+
+//                         </div>
+//                       </div>
+//                     </div>
+//                   );
+//                 })}
+//               </div>
+//             )}
+//           </div>
+//         );
+//       })}
+//     </div>
+//   );
+// };
+
+// export default RestaurantMenu;
+
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
+import MenuItemCard from "./MenuItemCard"; // ✅ New reusable card
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const resInfo = useRestaurantMenu(resId);
+  const dispatch = useDispatch();
   const [expandedCategory, setExpandedCategory] = useState(null);
 
   const toggleCategory = (title) => {
@@ -358,7 +488,6 @@ const RestaurantMenu = () => {
       c?.card?.card["@type"] ===
       "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
   );
-  console.log(itemCategories);
 
   return (
     <div className="p-8 font-sans bg-gray-100 min-h-screen text-center">
@@ -394,43 +523,13 @@ const RestaurantMenu = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 mt-4">
                 {items.map((itemCard, index) => {
                   const item = itemCard.card.info;
-                  const imageUrl = item.imageId
-                    ? `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_200/${item.imageId}`
-                    : null;
-
                   return (
-                    <div
+                    <MenuItemCard
                       key={`${item.id}-${index}`}
-                      className="bg-white rounded-xl shadow-md hover:shadow-lg transition transform hover:-translate-y-1 flex flex-col"
-                    >
-                      {imageUrl && (
-                        <img
-                          src={imageUrl}
-                          alt={item.name}
-                          className="w-full h-40 object-cover rounded-t-xl"
-                        />
-                      )}
-                      <div className="p-4 flex-1 flex flex-col justify-between">
-                        <div>
-                          <h3 className="text-lg font-semibold text-gray-800">
-                            {item.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 mt-1 min-h-[40px]">
-                            {item.description || "No description available"}
-                          </p>
-                        </div>
-                        <div className="flex justify-between items-center mt-4">
-                          <span className="font-bold text-gray-900">
-                            ₹{(item.price ?? item.defaultPrice ?? 0) / 100}
-                          </span>
-                          {item.ratings?.aggregatedRating?.rating && (
-                            <span className="bg-green-500 text-white text-xs px-3 py-1 rounded-full font-semibold">
-                              ⭐ {item.ratings.aggregatedRating.rating}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    </div>
+                      item={item}
+                      showAddButton={true}
+                      onAdd={() => dispatch(addItem(item))}
+                    />
                   );
                 })}
               </div>
