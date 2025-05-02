@@ -2,9 +2,6 @@ import { useContext } from "react";
 import { CDN_URL } from "../utils/constant"; // NAMED EXPORT
 import UserContext from "../utils/UserContext";
 
-const styleCard = {
-  backgroundColor: "#f0f0f0",
-};
 
 const RestaurantCard = (props) => {
   const { resData } = props;
